@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Rekrutacyjny - Serwer MC</title>
+    <title>Weryfikacja Gracza - Serwer Minecraft</title>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #00ff88;
             --secondary: #5865F2;
             --bg: #0d0d0d;
-            --card: rgba(20, 20, 20, 0.9);
+            --card: rgba(20, 20, 20, 0.95);
             --text: #ffffff;
             --error: #ff4646;
         }
@@ -20,15 +20,12 @@
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--bg);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(0, 255, 136, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(88, 101, 242, 0.05) 0%, transparent 20%);
+            background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #050505 100%);
             color: var(--text);
             margin: 0;
             padding: 20px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: center;
         }
 
         .container {
@@ -36,16 +33,15 @@
             max-width: 800px;
             background: var(--card);
             border: 1px solid rgba(0, 255, 136, 0.2);
-            border-radius: 25px;
+            border-radius: 30px;
             padding: 40px;
-            box-shadow: 0 0 40px rgba(0,0,0,0.7);
-            animation: fadeIn 1s ease-out;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            animation: slideIn 0.8s ease-out;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .logo {
@@ -58,15 +54,15 @@
         h1 {
             font-family: 'Rajdhani', sans-serif;
             text-align: center;
-            font-size: 2.8rem;
-            letter-spacing: 3px;
+            font-size: 2.5rem;
             color: var(--primary);
-            margin-bottom: 40px;
             text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
         }
 
         .question {
-            background: rgba(255,255,255,0.03);
+            background: rgba(255,255,255,0.02);
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 25px;
@@ -74,17 +70,15 @@
         }
 
         .question:hover {
-            background: rgba(255,255,255,0.06);
+            background: rgba(0, 255, 136, 0.03);
             border-left-color: var(--primary);
-            transform: translateX(5px);
         }
 
         label {
             display: block;
             font-weight: 800;
             margin-bottom: 15px;
-            font-size: 1.1rem;
-            color: #ccc;
+            color: #efefef;
         }
 
         input[type="text"] {
@@ -94,20 +88,16 @@
             border: 2px solid #333;
             border-radius: 10px;
             color: var(--primary);
-            font-family: 'Montserrat', sans-serif;
             font-size: 1rem;
             outline: none;
         }
 
         input[type="text"]:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
         }
 
-        .options-grid {
-            display: grid;
-            gap: 12px;
-        }
+        .opt-group { display: grid; gap: 10px; }
 
         .opt {
             background: #1a1a1a;
@@ -119,65 +109,46 @@
             border: 1px solid #333;
         }
 
-        .opt:hover { border-color: var(--secondary); background: #222; }
+        .opt:hover { border-color: var(--primary); }
 
         input[type="radio"] {
             margin-right: 15px;
-            transform: scale(1.3);
             accent-color: var(--primary);
+            transform: scale(1.2);
         }
 
         .send-btn {
             width: 100%;
-            padding: 20px;
-            background: var(--primary);
+            padding: 22px;
+            background: linear-gradient(45deg, var(--primary), #00cc6e);
             color: #000;
             border: none;
-            border-radius: 12px;
-            font-size: 1.4rem;
+            border-radius: 15px;
+            font-size: 1.5rem;
             font-weight: 900;
             font-family: 'Rajdhani', sans-serif;
             cursor: pointer;
             text-transform: uppercase;
-            margin-top: 20px;
-            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 255, 136, 0.2);
         }
 
         .send-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.5);
-            background: #00e67a;
+            box-shadow: 0 15px 30px rgba(0, 255, 136, 0.4);
         }
 
-        /* --- ADMIN SECTION --- */
-        #admin-panel { display: none; width: 100%; max-width: 900px; margin-top: 50px; }
-
-        .result-card {
-            background: #181818;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            border: 1px solid #333;
-            position: relative;
+        .admin-link {
+            margin-top: 30px;
+            text-align: center;
+            color: #333;
+            font-size: 0.8rem;
+            cursor: pointer;
         }
-
-        .stat-line { margin: 10px 0; font-size: 1.1rem; }
-        .bad { color: var(--error); font-weight: bold; }
-        .good { color: var(--primary); font-weight: bold; }
-
-        .del-btn {
-            position: absolute; top: 15px; right: 15px;
-            background: var(--error); color: white; border: none;
-            padding: 8px 12px; border-radius: 5px; cursor: pointer;
-        }
-
-        .admin-footer { margin-top: 60px; color: #333; cursor: pointer; font-size: 0.7rem; }
-        .admin-footer:hover { color: #555; }
     </style>
 </head>
 <body>
 
-<div class="container" id="quiz-ui">
+<div class="container" id="main-ui">
     <img src="https://i.imgur.com/QAjfTie.png" class="logo">
     <h1>Test Regulaminu</h1>
 
@@ -187,13 +158,13 @@
     </div>
 
     <div class="question">
-        <label>2. Niedozwolone mody (wpisz nazwy):</label>
+        <label>2. Niedozwolone mody na serwerze (nazwy):</label>
         <input type="text" id="q2">
     </div>
 
     <div class="question">
-        <label>3. Jeśli w jakimś modzie jest zakazana jakaś dodatkowa rzecz to co?</label>
-        <input type="text" id="q3" placeholder="(Opcjonalne)">
+        <label>3. Jeśli w modzie jest zakazana dodatkowa rzecz, to co? (Opcjonalne)</label>
+        <input type="text" id="q3">
     </div>
 
     <div class="question">
@@ -213,7 +184,7 @@
 
     <div class="question">
         <label>7. Czy można sprawdzać process hacker bez pozwolenia gracza?</label>
-        <div class="options-grid">
+        <div class="opt-group">
             <label class="opt"><input type="radio" name="q7" value="tak"> TAK</label>
             <label class="opt"><input type="radio" name="q7" value="nie"> NIE</label>
         </div>
@@ -221,135 +192,100 @@
 
     <div class="question">
         <label>8. Czego zabraniamy robienia na serwerze?</label>
-        <div class="options-grid">
+        <div class="opt-group">
             <label class="opt"><input type="radio" name="q8" value="1"> KOPIOWANIA, ELYTRAS, CHEATÓW</label>
             <label class="opt"><input type="radio" name="q8" value="2"> ELYTRAS, CHEATÓW</label>
             <label class="opt"><input type="radio" name="q8" value="3"> MINIMAPA BEZ GRACZY</label>
         </div>
     </div>
 
-    <button class="send-btn" onclick="processAndSend()">Wyślij Test</button>
-</div>
-
-<div class="admin-footer" onclick="openAdmin()">Panel Admina</div>
-
-<div id="admin-panel" class="container">
-    <h1 style="color: var(--secondary);">Wyniki Rejestru</h1>
-    <div id="results-list"></div>
-    <button class="send-btn" style="background: #333; color: #fff;" onclick="window.location.reload()">Powrót do testu</button>
+    <button class="send-btn" onclick="submitTest()">Wyślij Wyniki</button>
+    
+    <div class="admin-link" onclick="checkAdmin()">Dostęp Administracyjny</div>
 </div>
 
 <script>
-    const GOOD_MODS = ["elytraswapper", "autototem", "inventorymove", "swingtrought", "quick elytra", "soupapi", "minimapa", "betterpvp", "nameprotect"];
+    // --- KONFIGURACJA ---
+    const DISCORD_WEBHOOK = "TU_WKLEJ_SWOJ_WEBHOOK_Z_DISCORDA";
+    const ADMIN_PASS = '93820184029847592847u5}|_W{}:{:"?">OPKJI*W&*)!';
+    const ALLOWED_MODS = ["elytraswapper", "autototem", "inventorymove", "swingtrought", "quick elytra", "soupapi", "minimapa", "betterpvp", "nameprotect"];
 
-    function processAndSend() {
-        const nick = document.getElementById('q1').value;
-        const q2 = document.getElementById('q2').value;
-        const q4 = document.getElementById('q4').value;
-        const q5 = document.getElementById('q5').value;
-        const q6 = document.getElementById('q6').value;
+    async function submitTest() {
+        const nick = document.getElementById('q1').value.trim();
+        const q2 = document.getElementById('q2').value.trim();
+        const q4 = document.getElementById('q4').value.trim();
+        const q5 = document.getElementById('q5').value.trim();
+        const q6 = document.getElementById('q6').value.trim();
         const q7 = document.querySelector('input[name="q7"]:checked');
         const q8 = document.querySelector('input[name="q8"]:checked');
 
         if(!nick || !q2 || !q4 || !q5 || !q6 || !q7 || !q8) {
-            alert("Uzupełnij wszystkie wymagane pola przed wysłaniem!");
+            alert("Wypełnij wszystkie wymagane pola!");
             return;
         }
 
         let score = 0;
-        let errorsCount = 0;
-        let logs = [];
+        let errors = [];
 
-        // Q2 - Mody (Każdy unikalny = 1pkt)
+        // Logika sprawdzania
         let q2Val = q2.toLowerCase();
-        let found = 0;
-        GOOD_MODS.forEach(m => {
-            if(q2Val.includes(m)) { score++; found++; }
-        });
-        if(found === 0) { errorsCount++; logs.push("Brak dobrych modów w pytaniu 2"); }
+        let foundMods = 0;
+        ALLOWED_MODS.forEach(m => { if(q2Val.includes(m)) { score++; foundMods++; } });
+        if(foundMods === 0) errors.push("Nie wymienił żadnych modów");
 
-        // Q3 - Zawsze zalicza jak coś jest (opcjonalne)
         if(document.getElementById('q3').value.length > 2) score++;
+        if(q4.includes('2')) score++; else errors.push("Zła odpowiedź o multikonta");
+        if(q5.includes('12')) score++; else errors.push("Zła odpowiedź o czas bana");
+        if(q6.toLowerCase().includes('real') || q6.toLowerCase().includes('pieni')) score++; else errors.push("Zła odpowiedź o handel");
+        if(q7.value === 'nie') score++; else errors.push("Zła odpowiedź o Process Hacker");
+        if(q8.value === '1') score++; else errors.push("Zła odpowiedź o zakazy (Q8)");
 
-        // Q4 - Multikonta (Szukamy "2")
-        if(q4.includes('2')) score++; else { errorsCount++; logs.push("Błąd w pytaniu o multikonta"); }
+        const maxScore = ALLOWED_MODS.length + 6;
+        const percent = Math.round((score / maxScore) * 100);
 
-        // Q5 - 12 dni
-        if(q5.toLowerCase().includes('12')) score++; else { errorsCount++; logs.push("Błąd w pytaniu o bany (powinno być 12)"); }
-
-        // Q6 - Handel
-        let q6Val = q6.toLowerCase();
-        if(q6Val.includes('real') || q6Val.includes('pieni')) score++; else { errorsCount++; logs.push("Błąd w pytaniu o handel"); }
-
-        // Q7 - NIE (2 opcja)
-        if(q7.value === 'nie') score++; else { errorsCount++; logs.push("Błąd w pytaniu o Process Hacker"); }
-
-        // Q8 - Opcja 1
-        if(q8.value === '1') score++; else { errorsCount++; logs.push("Błąd w pytaniu o zakazy (Q8)"); }
-
-        // Wyliczanie procentów (Max punktów to liczba modów + 6 innych pytań)
-        const maxPts = GOOD_MODS.length + 6;
-        const percent = Math.round((score / maxPts) * 100);
-
-        const resultData = {
-            nick: nick,
-            score: score,
-            max: maxPts,
-            percent: percent,
-            badCount: errorsCount,
-            details: logs,
-            date: new Date().toLocaleString()
+        // Tworzenie obiektu do wysłania
+        const report = {
+            embeds: [{
+                title: `Nowy Test: ${nick}`,
+                color: percent >= 70 ? 65280 : 16711680,
+                fields: [
+                    { name: "📊 Wynik", value: `**${score} / ${maxScore}** (${percent}%)`, inline: true },
+                    { name: "❌ Błędy", value: errors.join("\n") || "Brak błędów", inline: false },
+                    { name: "Minecraft Nick", value: nick, inline: true },
+                    { name: "Mody", value: q2 },
+                    { name: "Handel", value: q6 },
+                    { name: "Czas Bana", value: q5 }
+                ],
+                footer: { text: `Godzina przesłania: ${new Date().toLocaleString()}` }
+            }]
         };
 
-        let db = JSON.parse(localStorage.getItem('mc_results') || '[]');
-        db.push(resultData);
-        localStorage.setItem('mc_results', JSON.stringify(db));
+        // Wysyłka na Discord
+        try {
+            const response = await fetch(DISCORD_WEBHOOK, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(report)
+            });
 
-        alert("Test został wysłany do administracji!");
-        location.reload();
-    }
-
-    function openAdmin() {
-        const pass = prompt("Podaj hasło administratora:");
-        // Twoje nowe hasło:
-        if(pass === '93820184029847592847u5}|_W{}:{:"?">OPKJI*W&*)!') {
-            document.getElementById('quiz-ui').style.display = 'none';
-            document.getElementById('admin-panel').style.display = 'block';
-            loadResults();
-        } else {
-            alert("Nieprawidłowe hasło!");
+            if(response.ok) {
+                alert("Test wysłany pomyślnie! Wyniki trafiły do Admina.");
+                location.reload();
+            } else {
+                alert("Błąd połączenia z serwerem. Sprawdź Webhook.");
+            }
+        } catch (e) {
+            alert("Błąd krytyczny przy wysyłaniu.");
         }
     }
 
-    function loadResults() {
-        const list = document.getElementById('results-list');
-        const db = JSON.parse(localStorage.getItem('mc_results') || '[]');
-        list.innerHTML = '';
-
-        db.reverse().forEach((r, i) => {
-            const errorList = r.details.map(e => `<li>${e}</li>`).join('');
-            list.innerHTML += `
-                <div class="result-card">
-                    <button class="del-btn" onclick="removeRes(${i})">Usuń</button>
-                    <h2 style="margin:0; color:var(--primary);">${r.nick}</h2>
-                    <p style="color:#666; font-size:0.8rem;">Data: ${r.date}</p>
-                    <div class="stat-line">Wynik: <span class="good">${r.score}</span> / ${r.max} PKT</div>
-                    <div class="stat-line">Procentowo: <span class="good">${r.percent}%</span></div>
-                    <div class="stat-line">Ilość błędnych odpowiedzi: <span class="bad">${r.badCount}</span></div>
-                    <hr style="border:0; border-top:1px solid #333; margin:15px 0;">
-                    <p><b>Lista błędów/uwag:</b></p>
-                    <ul style="color:#aaa; font-size:0.9rem;">${errorList || '<li>Brak błędów!</li>'}</ul>
-                </div>
-            `;
-        });
-    }
-
-    function removeRes(i) {
-        let db = JSON.parse(localStorage.getItem('mc_results') || '[]');
-        db.reverse().splice(i, 1);
-        db.reverse();
-        localStorage.setItem('mc_results', JSON.stringify(db));
-        loadResults();
+    function checkAdmin() {
+        const p = prompt("Podaj tajne hasło:");
+        if(p === ADMIN_PASS) {
+            alert("Jako administrator powinieneś sprawdzać wyniki na swoim kanale DISCORD, gdzie spływają one automatycznie.");
+        } else {
+            alert("Brak uprawnień.");
+        }
     }
 </script>
 
