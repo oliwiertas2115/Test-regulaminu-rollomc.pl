@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test z Regulaminu Serwera</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5865F2;
+            --secondary: #2f3136;
+            --accent: #00d166;
+            --bg: #36393f;
+            --text: #ffffff;
+            --danger: #ed4245;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: var(--secondary);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 120px;
+            filter: drop-shadow(0 0 10px rgba(88, 101, 242, 0.5));
+        }
+
+        h1 { text-align: center; color: var(--primary); margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px; }
+
+        .q-box {
+            background: rgba(255,255,255,0.03);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+            transition: 0.3s;
+        }
+
+        .q-box:hover { background: rgba(255,255,255,0.07); transform: scale(1.01); }
+
+        label { display: block; margin-bottom: 12px; font-weight: 600; font-size: 0.95rem; }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            background: #202225;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus { border-color: var(--primary); }
+
+        .options { display: flex; flex-direction: column; gap: 10px; }
+
+        .opt-btn {
+            background: #40444b;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: 0.2s;
+            user-select: none;
+        }
+
+        .opt-btn:hover { background: #4f545c; }
+        .opt-btn input { margin-right: 15px; width: 18px; height: 18px; cursor: pointer; }
+
+        .btn-send {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+        }
+
+        .btn-send:hover { background: #4752c4; transform: translateY(-3px); }
+
+        /* Admin Panel Styles */
+        #admin-section {
+            margin-top: 50px;
+            width: 100%;
+            max-width: 900px;
+            display: none;
+        }
+
+        .result-card {
+            background: #2f3136;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            position: relative;
+            border: 1px solid #4f545c;
+        }
+
+        .del-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--danger);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .badge {
+            background: var(--accent);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .toggle-admin {
+            margin-top: 40px;
+            color: #72767d;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="quiz-container">
+    <img src="https://i.imgur.com/QAjfTie.png" class="logo" alt="Logo">
+    <h1>Test Regulaminu</h1>
+
+    <div class="q-box">
+        <label>1. Twój Nick z Minecrafta:</label>
+        <input type="text" id="q1" placeholder="Wpisz nick...">
+    </div>
+
+    <div class="q-box">
+        <label>2. Wymień niedozwolone mody (wpisz nazwy):</label>
+        <input type="text" id="q2" placeholder="Wymień po przecinku...">
+    </div>
+
+    <div class="q-box">
+        <label>3. Jeśli mod ma zakazaną funkcję, co wtedy?</label>
+        <input type="text" id="q3" placeholder="Twoja odpowiedź...">
+    </div>
+
+    <div class="q-box">
+        <label>4. Ile multikont jest dozwolonych na serwerze?</label>
+        <input type="text" id="q4" placeholder="Np. 1+1...">
+    </div>
+
+    <div class="q-box">
+        <label>5. Na ile dni daje się bana za cheaty?</label>
+        <input type="text" id="q5" placeholder="Np. 7 dni...">
+    </div>
+
+    <div class="q-box">
+        <label>6. Jaki handel jest srogo zabroniony?</label>
+        <input type="text" id="q6" placeholder="Wpisz zasadę...">
+    </div>
+
+    <div class="q-box">
+        <label>7. Czy można sprawdzać Process Hacker bez pozwolenia gracza?</label>
+        <div class="options">
+            <label class="opt-btn"><input type="radio" name="q7" value="tak"> TAK</label>
+            <label class="opt-btn"><input type="radio" name="q7" value="nie"> NIE</label>
+        </div>
+    </div>
+
+    <div class="q-box">
+        <label>8. Czego zabraniamy robienia na serwerze?</label>
+        <div class="options">
+            <label class="opt-btn"><input type="radio" name="q8" value="1"> Kopiowania, Elytras, Cheatów</label>
+            <label class="opt-btn"><input type="radio" name="q8" value="2"> Elytras, Cheatów</label>
+            <label class="opt-btn"><input type="radio" name="q8" value="3"> Minimapa bez graczy</label>
+        </div>
+    </div>
+
+    <button class="btn-send" onclick="submitTest()">WYŚLIJ TEST</button>
+</div>
+
+<span class="toggle-admin" onclick="toggleAdmin()">Panel Administratora</span>
+
+<div id="admin-section">
+    <h2 style="text-align: center;">Wyniki Kandydatów</h2>
+    <div id="results-list"></div>
+</div>
+
+<script>
+    const MODS = ["elytraswapper", "autototem", "inventorymove", "swingtrought", "quick elytra", "soupapi", "minimap", "betterpvp", "nameprotect"];
+
+    function submitTest() {
+        const nick = document.getElementById('q1').value;
+        if(!nick) { alert("Podaj nick!"); return; }
+
+        let pts = 0;
+        let logs = [];
+
+        // Logika punktacji
+        // Q2 - Mody
+        let q2Val = document.getElementById('q2').value.toLowerCase();
+        let found = [];
+        MODS.forEach(m => {
+            if(q2Val.includes(m) && !found.includes(m)) {
+                pts++;
+                found.push(m);
+            }
+        });
+
+        // Q3 - Opis (liberalny)
+        if(document.getElementById('q3').value.length > 5) pts++;
+
+        // Q4 - Multikonta (szukamy cyfry 2)
+        if(document.getElementById('q4').value.includes('2')) pts++;
+
+        // Q5 - 12 dni
+        if(document.getElementById('q5').value.includes('12')) pts++;
+
+        // Q6 - Handel (pieniądze)
+        let q6 = document.getElementById('q6').value.toLowerCase();
+        if(q6.includes('pieni') || q6.includes('real')) pts++;
+
+        // Q7 - NIE
+        let q7 = document.querySelector('input[name="q7"]:checked');
+        if(q7 && q7.value === 'nie') pts++;
+
+        // Q8 - Opcja 1
+        let q8 = document.querySelector('input[name="q8"]:checked');
+        if(q8 && q8.value === '1') pts++;
+
+        const percent = Math.round((pts / 15) * 100); // 15 to przybliżony max przy wielu modach
+
+        const data = {
+            nick: nick,
+            score: pts,
+            percent: percent,
+            time: new Date().toLocaleString(),
+            answers: [
+                document.getElementById('q2').value,
+                document.getElementById('q3').value,
+                document.getElementById('q4').value,
+                document.getElementById('q5').value,
+                document.getElementById('q6').value
+            ]
+        };
+
+        // Zapisz w LocalStorage
+        let results = JSON.parse(localStorage.getItem('serwer_results') || '[]');
+        results.push(data);
+        localStorage.setItem('serwer_results', JSON.stringify(results));
+
+        alert("Test wysłany pomyślnie!");
+        location.reload(); // Czyści formularz
+    }
+
+    function toggleAdmin() {
+        const pass = prompt("Podaj hasło administratora:");
+        if(pass === "admin123") {
+            document.getElementById('admin-section').style.display = 'block';
+            renderResults();
+        } else {
+            alert("Błędne hasło!");
+        }
+    }
+
+    function renderResults() {
+        const list = document.getElementById('results-list');
+        const results = JSON.parse(localStorage.getItem('serwer_results') || '[]');
+        list.innerHTML = '';
+
+        results.reverse().forEach((r, index) => {
+            list.innerHTML += `
+                <div class="result-card">
+                    <button class="del-btn" onclick="deleteRes(${index})">Usuń</button>
+                    <strong>Gracz: ${r.nick}</strong> <span class="badge">${r.score} PKT (${r.percent}%)</span><br>
+                    <small style="color: #aaa">${r.time}</small>
+                    <hr style="border: 0; border-top: 1px solid #444; margin: 10px 0;">
+                    <div style="font-size: 0.85rem;">
+                        <b>Mody:</b> ${r.answers[0]}<br>
+                        <b>Zasada:</b> ${r.answers[1]}<br>
+                        <b>Multikonta:</b> ${r.answers[2]}<br>
+                        <b>Ban:</b> ${r.answers[3]}<br>
+                        <b>Handel:</b> ${r.answers[4]}
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    function deleteRes(idx) {
+        let results = JSON.parse(localStorage.getItem('serwer_results') || '[]');
+        results.reverse().splice(idx, 1);
+        results.reverse();
+        localStorage.setItem('serwer_results', JSON.stringify(results));
+        renderResults();
+    }
+</script>
+
+</body>
+</html>
