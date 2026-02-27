@@ -3,369 +3,353 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rekrutacja - Test z Regulaminu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Test Rekrutacyjny - Serwer MC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #00ff88;
-            --secondary: #121212;
-            --accent: #5865F2;
-            --bg: #0a0a0a;
-            --card-bg: rgba(25, 25, 25, 0.95);
-            --text: #e0e0e0;
-            --danger: #ff4d4d;
+            --secondary: #5865F2;
+            --bg: #0d0d0d;
+            --card: rgba(20, 20, 20, 0.9);
+            --text: #ffffff;
+            --error: #ff4646;
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; transition: all 0.3s ease; }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%);
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 255, 136, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(88, 101, 242, 0.05) 0%, transparent 20%);
             color: var(--text);
             margin: 0;
-            padding: 40px 10px;
-            overflow-x: hidden;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .container {
             width: 100%;
-            max-width: 850px;
-            margin: 0 auto;
-            background: var(--card-bg);
+            max-width: 800px;
+            background: var(--card);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 25px;
             padding: 40px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-            position: relative;
-            animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 0 0 40px rgba(0,0,0,0.7);
+            animation: fadeIn 1s ease-out;
+            backdrop-filter: blur(10px);
         }
 
-        @keyframes slideUp {
-            0% { opacity: 0; transform: translateY(50px) scale(0.9); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .logo {
             display: block;
-            margin: 0 auto 30px;
-            max-width: 160px;
-            filter: drop-shadow(0 0 15px var(--primary));
-            animation: pulse 3s infinite ease-in-out;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px var(--primary)); }
-            50% { transform: scale(1.05); filter: drop-shadow(0 0 25px var(--primary)); }
+            margin: 0 auto 20px;
+            max-width: 140px;
+            filter: drop-shadow(0 0 10px var(--primary));
         }
 
         h1 {
             font-family: 'Rajdhani', sans-serif;
             text-align: center;
+            font-size: 2.8rem;
+            letter-spacing: 3px;
             color: var(--primary);
-            font-size: 2.5rem;
+            margin-bottom: 40px;
             text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-bottom: 50px;
-            text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
         }
 
-        .q-box {
-            background: rgba(255, 255, 255, 0.02);
+        .question {
+            background: rgba(255,255,255,0.03);
             padding: 25px;
-            border-radius: 20px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s ease;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--secondary);
         }
 
-        .q-box:hover {
-            border-color: var(--primary);
-            background: rgba(0, 255, 136, 0.03);
-            transform: translateX(10px);
+        .question:hover {
+            background: rgba(255,255,255,0.06);
+            border-left-color: var(--primary);
+            transform: translateX(5px);
         }
 
         label {
             display: block;
+            font-weight: 800;
             margin-bottom: 15px;
-            font-weight: 700;
             font-size: 1.1rem;
-            color: #fff;
+            color: #ccc;
         }
 
         input[type="text"] {
             width: 100%;
-            padding: 15px 20px;
+            padding: 14px;
             background: #000;
             border: 2px solid #333;
-            border-radius: 12px;
+            border-radius: 10px;
             color: var(--primary);
+            font-family: 'Montserrat', sans-serif;
             font-size: 1rem;
             outline: none;
-            transition: 0.3s;
         }
 
         input[type="text"]:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
         }
 
-        .options { display: grid; gap: 15px; }
+        .options-grid {
+            display: grid;
+            gap: 12px;
+        }
 
-        .opt-btn {
+        .opt {
             background: #1a1a1a;
             padding: 15px;
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
             display: flex;
             align-items: center;
             border: 1px solid #333;
-            transition: 0.3s;
         }
 
-        .opt-btn:hover {
-            background: #252525;
-            border-color: var(--accent);
-        }
+        .opt:hover { border-color: var(--secondary); background: #222; }
 
-        .opt-btn input {
+        input[type="radio"] {
             margin-right: 15px;
-            width: 20px;
-            height: 20px;
+            transform: scale(1.3);
             accent-color: var(--primary);
         }
 
-        .btn-send {
+        .send-btn {
             width: 100%;
             padding: 20px;
-            background: linear-gradient(45deg, var(--primary), #00cc6e);
+            background: var(--primary);
             color: #000;
             border: none;
-            border-radius: 15px;
-            font-size: 1.3rem;
+            border-radius: 12px;
+            font-size: 1.4rem;
             font-weight: 900;
             font-family: 'Rajdhani', sans-serif;
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: 0.4s;
-            box-shadow: 0 10px 20px rgba(0, 255, 136, 0.2);
+            margin-top: 20px;
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
         }
 
-        .btn-send:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(0, 255, 136, 0.4);
+        .send-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.5);
+            background: #00e67a;
         }
 
-        /* ADMIN PANEL */
-        #admin-section { display: none; margin-top: 60px; width: 100%; max-width: 900px; animation: fadeIn 1s; }
+        /* --- ADMIN SECTION --- */
+        #admin-panel { display: none; width: 100%; max-width: 900px; margin-top: 50px; }
+
         .result-card {
-            background: #111;
+            background: #181818;
             padding: 25px;
-            border-radius: 20px;
+            border-radius: 15px;
             margin-bottom: 20px;
-            border: 1px solid #222;
+            border: 1px solid #333;
             position: relative;
         }
-        .wrong-ans { color: var(--danger); font-style: italic; }
+
+        .stat-line { margin: 10px 0; font-size: 1.1rem; }
+        .bad { color: var(--error); font-weight: bold; }
+        .good { color: var(--primary); font-weight: bold; }
+
         .del-btn {
-            position: absolute; top: 20px; right: 20px;
-            background: var(--danger); border: none; color: white;
-            padding: 8px 15px; border-radius: 8px; cursor: pointer;
-        }
-        .score-badge {
-            float: right; padding: 5px 15px; border-radius: 50px;
-            background: var(--accent); font-weight: bold;
+            position: absolute; top: 15px; right: 15px;
+            background: var(--error); color: white; border: none;
+            padding: 8px 12px; border-radius: 5px; cursor: pointer;
         }
 
-        .footer-link {
-            margin-top: 40px; color: #444; cursor: pointer; transition: 0.3s;
-        }
-        .footer-link:hover { color: var(--primary); }
+        .admin-footer { margin-top: 60px; color: #333; cursor: pointer; font-size: 0.7rem; }
+        .admin-footer:hover { color: #555; }
     </style>
 </head>
 <body>
 
-<div class="container" id="quiz-wrap">
-    <img src="https://i.imgur.com/QAjfTie.png" class="logo" alt="Server Logo">
-    <h1>Weryfikacja Gracza</h1>
+<div class="container" id="quiz-ui">
+    <img src="https://i.imgur.com/QAjfTie.png" class="logo">
+    <h1>Test Regulaminu</h1>
 
-    <div class="q-box">
-        <label>Twoja nazwa użytkownika (Minecraft):</label>
-        <input type="text" id="q1" required>
+    <div class="question">
+        <label>1. Nick z Minecrafta:</label>
+        <input type="text" id="q1">
     </div>
 
-    <div class="q-box">
-        <label>Wymień niedozwolone modyfikacje:</label>
-        <input type="text" id="q2" required>
+    <div class="question">
+        <label>2. Niedozwolone mody (wpisz nazwy):</label>
+        <input type="text" id="q2">
     </div>
 
-    <div class="q-box">
-        <label>Jeśli mod posiada zakazaną funkcję, co wtedy? (Opcjonalne)</label>
-        <input type="text" id="q3">
+    <div class="question">
+        <label>3. Jeśli w jakimś modzie jest zakazana jakaś dodatkowa rzecz to co?</label>
+        <input type="text" id="q3" placeholder="(Opcjonalne)">
     </div>
 
-    <div class="q-box">
-        <label>Maksymalna ilość multikont na serwerze:</label>
-        <input type="text" id="q4" required>
+    <div class="question">
+        <label>4. Ile multikont jest dozwolone na serwerze?</label>
+        <input type="text" id="q4">
     </div>
 
-    <div class="q-box">
-        <label>Długość blokady za używanie cheatów:</label>
-        <input type="text" id="q5" required>
+    <div class="question">
+        <label>5. Na ile daje się bana za cheaty?</label>
+        <input type="text" id="q5">
     </div>
 
-    <div class="q-box">
-        <label>Jaki typ handlu jest surowo wzbroniony?</label>
-        <input type="text" id="q6" required>
+    <div class="question">
+        <label>6. Jaki handel jest srogo zabroniony na serwerze?</label>
+        <input type="text" id="q6">
     </div>
 
-    <div class="q-box">
-        <label>Czy procesy komputera (Process Hacker) można sprawdzać bez zgody?</label>
-        <div class="options">
-            <label class="opt-btn"><input type="radio" name="q7" value="tak"> Tak, administracja może wszystko.</label>
-            <label class="opt-btn"><input type="radio" name="q7" value="nie"> Nie, jest to zabronione.</label>
+    <div class="question">
+        <label>7. Czy można sprawdzać process hacker bez pozwolenia gracza?</label>
+        <div class="options-grid">
+            <label class="opt"><input type="radio" name="q7" value="tak"> TAK</label>
+            <label class="opt"><input type="radio" name="q7" value="nie"> NIE</label>
         </div>
     </div>
 
-    <div class="q-box">
-        <label>Które z wymienionych czynności są zakazane?</label>
-        <div class="options">
-            <label class="opt-btn"><input type="radio" name="q8" value="1"> Kopiowanie przedmiotów, Elytra exploit, Cheaty</label>
-            <label class="opt-btn"><input type="radio" name="q8" value="2"> Tylko używanie Elytry i Cheatowanie</label>
-            <label class="opt-btn"><input type="radio" name="q8" value="3"> Korzystanie z minimapy bez graczy</label>
+    <div class="question">
+        <label>8. Czego zabraniamy robienia na serwerze?</label>
+        <div class="options-grid">
+            <label class="opt"><input type="radio" name="q8" value="1"> KOPIOWANIA, ELYTRAS, CHEATÓW</label>
+            <label class="opt"><input type="radio" name="q8" value="2"> ELYTRAS, CHEATÓW</label>
+            <label class="opt"><input type="radio" name="q8" value="3"> MINIMAPA BEZ GRACZY</label>
         </div>
     </div>
 
-    <button class="btn-send" onclick="sendTest()">Wyślij zgłoszenie</button>
+    <button class="send-btn" onclick="processAndSend()">Wyślij Test</button>
 </div>
 
-<center>
-    <div class="footer-link" onclick="openAdmin()">Dostęp dla personelu</div>
-</center>
+<div class="admin-footer" onclick="openAdmin()">Panel Admina</div>
 
-<div id="admin-section" class="container">
-    <h1>Panel Zarządzania</h1>
+<div id="admin-panel" class="container">
+    <h1 style="color: var(--secondary);">Wyniki Rejestru</h1>
     <div id="results-list"></div>
+    <button class="send-btn" style="background: #333; color: #fff;" onclick="window.location.reload()">Powrót do testu</button>
 </div>
 
 <script>
-    const MOD_LIST = ["elytraswapper", "autototem", "inventorymove", "swingtrought", "quick elytra", "soupapi", "minimapa", "betterpvp", "nameprotect"];
+    const GOOD_MODS = ["elytraswapper", "autototem", "inventorymove", "swingtrought", "quick elytra", "soupapi", "minimapa", "betterpvp", "nameprotect"];
 
-    function sendTest() {
-        // Walidacja pól wymaganych
-        const requiredFields = ['q1', 'q2', 'q4', 'q5', 'q6'];
-        for(let id of requiredFields) {
-            if(!document.getElementById(id).value.trim()) {
-                alert("Wypełnij wszystkie wymagane pola!");
-                document.getElementById(id).focus();
-                return;
-            }
-        }
+    function processAndSend() {
+        const nick = document.getElementById('q1').value;
+        const q2 = document.getElementById('q2').value;
+        const q4 = document.getElementById('q4').value;
+        const q5 = document.getElementById('q5').value;
+        const q6 = document.getElementById('q6').value;
+        const q7 = document.querySelector('input[name="q7"]:checked');
+        const q8 = document.querySelector('input[name="q8"]:checked');
 
-        const q7Check = document.querySelector('input[name="q7"]:checked');
-        const q8Check = document.querySelector('input[name="q8"]:checked');
-        if(!q7Check || !q8Check) {
-            alert("Zaznacz odpowiedzi w pytaniach wyboru!");
+        if(!nick || !q2 || !q4 || !q5 || !q6 || !q7 || !q8) {
+            alert("Uzupełnij wszystkie wymagane pola przed wysłaniem!");
             return;
         }
 
-        // Punktacja i błędy
         let score = 0;
-        let errors = [];
+        let errorsCount = 0;
+        let logs = [];
 
-        // Q2 - Mody
-        let q2Val = document.getElementById('q2').value.toLowerCase();
-        let foundMods = 0;
-        MOD_LIST.forEach(m => { if(q2Val.includes(m)) { score++; foundMods++; } });
-        if(foundMods === 0) errors.push("Nie wymienił żadnego zakazanego moda.");
+        // Q2 - Mody (Każdy unikalny = 1pkt)
+        let q2Val = q2.toLowerCase();
+        let found = 0;
+        GOOD_MODS.forEach(m => {
+            if(q2Val.includes(m)) { score++; found++; }
+        });
+        if(found === 0) { errorsCount++; logs.push("Brak dobrych modów w pytaniu 2"); }
 
-        // Q3 - Zawsze zalicza jeśli coś wpisane (bo opcjonalne)
+        // Q3 - Zawsze zalicza jak coś jest (opcjonalne)
         if(document.getElementById('q3').value.length > 2) score++;
 
         // Q4 - Multikonta (Szukamy "2")
-        if(document.getElementById('q4').value.includes('2')) { score++; } else { errors.push("Błąd w multikontach."); }
+        if(q4.includes('2')) score++; else { errorsCount++; logs.push("Błąd w pytaniu o multikonta"); }
 
         // Q5 - 12 dni
-        let q5Val = document.getElementById('q5').value.toLowerCase();
-        if(q5Val.includes('12')) { score++; } else { errors.push("Błędny czas bana (powinno być 12)."); }
+        if(q5.toLowerCase().includes('12')) score++; else { errorsCount++; logs.push("Błąd w pytaniu o bany (powinno być 12)"); }
 
         // Q6 - Handel
-        let q6Val = document.getElementById('q6').value.toLowerCase();
-        if(q6Val.includes('real') || q6Val.includes('pieni')) { score++; } else { errors.push("Nie wspomniał o handlu za realne pieniądze."); }
+        let q6Val = q6.toLowerCase();
+        if(q6Val.includes('real') || q6Val.includes('pieni')) score++; else { errorsCount++; logs.push("Błąd w pytaniu o handel"); }
 
-        // Q7 - NIE (Opcja 2)
-        if(q7Check.value === 'nie') { score++; } else { errors.push("Uważa, że można sprawdzać PH bez zgody."); }
+        // Q7 - NIE (2 opcja)
+        if(q7.value === 'nie') score++; else { errorsCount++; logs.push("Błąd w pytaniu o Process Hacker"); }
 
         // Q8 - Opcja 1
-        if(q8Check.value === '1') { score++; } else { errors.push("Błędna lista zakazanych czynności."); }
+        if(q8.value === '1') score++; else { errorsCount++; logs.push("Błąd w pytaniu o zakazy (Q8)"); }
 
-        const totalPotential = MOD_LIST.length + 6;
-        const percent = Math.round((score / totalPotential) * 100);
+        // Wyliczanie procentów (Max punktów to liczba modów + 6 innych pytań)
+        const maxPts = GOOD_MODS.length + 6;
+        const percent = Math.round((score / maxPts) * 100);
 
-        const submission = {
-            nick: document.getElementById('q1').value,
+        const resultData = {
+            nick: nick,
             score: score,
+            max: maxPts,
             percent: percent,
-            errors: errors,
-            date: new Date().toLocaleString(),
-            raw: [
-                document.getElementById('q2').value,
-                document.getElementById('q3').value,
-                document.getElementById('q4').value,
-                document.getElementById('q5').value,
-                document.getElementById('q6').value
-            ]
+            badCount: errorsCount,
+            details: logs,
+            date: new Date().toLocaleString()
         };
 
-        let database = JSON.parse(localStorage.getItem('server_db') || '[]');
-        database.push(submission);
-        localStorage.setItem('server_db', JSON.stringify(database));
+        let db = JSON.parse(localStorage.getItem('mc_results') || '[]');
+        db.push(resultData);
+        localStorage.setItem('mc_results', JSON.stringify(db));
 
-        alert("Zgłoszenie wysłane! Dziękujemy.");
+        alert("Test został wysłany do administracji!");
         location.reload();
     }
 
     function openAdmin() {
-        const p = prompt("Hasło:");
-        if(p === "admin") {
-            document.getElementById('quiz-wrap').style.display = 'none';
-            document.getElementById('admin-section').style.display = 'block';
-            showResults();
+        const pass = prompt("Podaj hasło administratora:");
+        // Twoje nowe hasło:
+        if(pass === '93820184029847592847u5}|_W{}:{:"?">OPKJI*W&*)!') {
+            document.getElementById('quiz-ui').style.display = 'none';
+            document.getElementById('admin-panel').style.display = 'block';
+            loadResults();
+        } else {
+            alert("Nieprawidłowe hasło!");
         }
     }
 
-    function showResults() {
+    function loadResults() {
         const list = document.getElementById('results-list');
-        const db = JSON.parse(localStorage.getItem('server_db') || '[]');
-        list.innerHTML = db.length === 0 ? "<p>Brak zgłoszeń.</p>" : "";
+        const db = JSON.parse(localStorage.getItem('mc_results') || '[]');
+        list.innerHTML = '';
 
-        db.reverse().forEach((item, i) => {
-            const errHtml = item.errors.map(e => `<li class="wrong-ans">${e}</li>`).join('');
+        db.reverse().forEach((r, i) => {
+            const errorList = r.details.map(e => `<li>${e}</li>`).join('');
             list.innerHTML += `
                 <div class="result-card">
-                    <button class="del-btn" onclick="deleteEntry(${i})">Usuń</button>
-                    <span class="score-badge">${item.percent}%</span>
-                    <h3>${item.nick}</h3>
-                    <p><small>${item.date}</small></p>
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9rem;">
-                        <div><b>Wymienione mody:</b> ${item.raw[0]}</div>
-                        <div><b>Multikonta:</b> ${item.raw[2]}</div>
-                        <div><b>Czas bana:</b> ${item.raw[3]}</div>
-                        <div><b>Handel:</b> ${item.raw[4]}</div>
-                    </div>
-                    <p><b>Wykryte błędy:</b></p>
-                    <ul>${errHtml || "Brak błędów - wzorowy test!"}</ul>
+                    <button class="del-btn" onclick="removeRes(${i})">Usuń</button>
+                    <h2 style="margin:0; color:var(--primary);">${r.nick}</h2>
+                    <p style="color:#666; font-size:0.8rem;">Data: ${r.date}</p>
+                    <div class="stat-line">Wynik: <span class="good">${r.score}</span> / ${r.max} PKT</div>
+                    <div class="stat-line">Procentowo: <span class="good">${r.percent}%</span></div>
+                    <div class="stat-line">Ilość błędnych odpowiedzi: <span class="bad">${r.badCount}</span></div>
+                    <hr style="border:0; border-top:1px solid #333; margin:15px 0;">
+                    <p><b>Lista błędów/uwag:</b></p>
+                    <ul style="color:#aaa; font-size:0.9rem;">${errorList || '<li>Brak błędów!</li>'}</ul>
                 </div>
             `;
         });
     }
 
-    function deleteEntry(i) {
-        let db = JSON.parse(localStorage.getItem('server_db') || '[]');
+    function removeRes(i) {
+        let db = JSON.parse(localStorage.getItem('mc_results') || '[]');
         db.reverse().splice(i, 1);
         db.reverse();
-        localStorage.setItem('server_db', JSON.stringify(db));
-        showResults();
+        localStorage.setItem('mc_results', JSON.stringify(db));
+        loadResults();
     }
 </script>
 
