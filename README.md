@@ -1,0 +1,1 @@
+# Test-regulaminu-rollomc.pl
